@@ -7,10 +7,5 @@ public class Main {
         System.out.println(new Solution().groupAnagrams(new String[]{""}));
         System.out.println(new Solution().groupAnagrams(new String[]{"a"}));
         System.out.println(new Solution().groupAnagrams(new String[]{"ddddddddddg","dgggggggggg"}));
-
-
-
-
-
     }
 }
