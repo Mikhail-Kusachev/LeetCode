@@ -4,21 +4,11 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(TwoSum(new int[]{2, 7, 11, 15}, 9)));
-    }
+        Solution s = new Solution();
 
-    public static int[] TwoSum(int[] nums, int target) {
-        int[] result = {-1, -1};
-        for (int i = 0; i < nums.length - 1; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    result[0] = i;
-                    result[1] = j;
-                    break;
-                }
-            }
-            if (result[0] == i) { break; }
-        }
-        return result;
+        System.out.println(Arrays.toString(s.twoSum(new int[]{3,2,4}, 6)) + " = [1, 2]");
+        System.out.println(Arrays.toString(s.twoSum(new int[]{2, 7, 11, 15}, 9)) + " = [0, 1]");
+        System.out.println(Arrays.toString(s.twoSum(new int[]{3, 3}, 6)) + " = [0, 1]");
+        System.out.println(Arrays.toString(s.twoSum(new int[]{2, 5, 5, 11}, 10)) + " = [1, 2]");
     }
 }
