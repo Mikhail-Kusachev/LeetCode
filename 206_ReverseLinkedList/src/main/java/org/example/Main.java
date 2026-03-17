@@ -32,14 +32,13 @@ class ListNode {
 
 class Solution {
     public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null)
-            return head;
-        ListNode result = null;
-        var iterator = head;
-        while (iterator != null) {
-            result = new ListNode(iterator.val, result);
-            iterator = iterator.next;
-        }
-        return result;
+        return helper(head, null);
+    }
+
+    private ListNode helper(ListNode current, ListNode reversed) {
+        if (current == null)
+            return reversed;
+        var newNode = new ListNode(current.val, reversed);
+        return helper(current.next, newNode);
     }
 }
