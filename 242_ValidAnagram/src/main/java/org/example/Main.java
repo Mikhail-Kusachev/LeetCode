@@ -1,6 +1,7 @@
 package org.example;
 
-import java.util.Arrays;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.joining;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,11 +14,7 @@ public class Main {
 
 class Solution {
     public boolean isAnagram(String s, String t) {
-        if (s.length() != t.length()) return false;
-        var a1 = s.toCharArray();
-        var a2 = t.toCharArray();
-        Arrays.sort(a1);
-        Arrays.sort(a2);
-        return Arrays.equals(a1, a2) ? true : false;
+        return stream(s.split("")).sorted().collect(joining())
+                .equals(stream(t.split("")).sorted().collect(joining()));
     }
 }
