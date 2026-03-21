@@ -26,27 +26,12 @@ public class Main {
 }
 
 class Solution {
-    private static final String REGEX_IP4 = "^(\\d{1,3}\\.){3}\\d{1,3}$";
     private static final String REGEX_IP6 = "^([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}$";
-    private static final String DELIMITER_IP4 = "\\.";
-    private static final String ANSWER_FALSE = "Neither";
-    private static final String ANSWER_IP4 = "IPv4";
-    private static final String ANSWER_IP6 = "IPv6";
+    private static final String REGEX_IP4 = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}" +
+                                              "(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$";
 
     public String validIPAddress(String queryIP) {
-        if (queryIP.matches(REGEX_IP4)) {
-            var parts = queryIP.split(DELIMITER_IP4);
-            for (var part : parts) {
-                if (part.charAt(0) == '0' && part.length() > 1)
-                    return ANSWER_FALSE;
-                int num = Integer.parseInt(part);
-                if (num < 0 || num > 255)
-                    return ANSWER_FALSE;
-            }
-            return ANSWER_IP4;
-        }
-        else if (queryIP.matches(REGEX_IP6)) return ANSWER_IP6;
-
-        return ANSWER_FALSE;
+        return queryIP.matches(REGEX_IP4) ? "IPv4" :
+               queryIP.matches(REGEX_IP6) ? "IPv6" : "Neither";
     }
 }
