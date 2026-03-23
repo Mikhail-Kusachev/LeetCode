@@ -26,12 +26,48 @@ public class Main {
 }
 
 class Solution {
-    private static final String REGEX_IP6 = "^([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}$";
-    private static final String REGEX_IP4 = "^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}" +
-                                              "(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$";
-
     public String validIPAddress(String queryIP) {
-        return queryIP.matches(REGEX_IP4) ? "IPv4" :
-               queryIP.matches(REGEX_IP6) ? "IPv6" : "Neither";
+        if (queryIP == null || queryIP.length() == 0)
+            return "Neither";
+        if (queryIP.contains("."))
+            return isIPv4(queryIP) ? "IPv4" : "Neither";
+        else if (queryIP.contains(":"))
+            return isIPv6(queryIP) ? "IPv6" : "Neither";
+        else
+            return "Neither";
+    }
+
+    private boolean isIPv4(String s) {
+        var parts = s.split("\\.", -1);
+        if (parts.length != 4) return false;
+
+        for (var part : parts) {
+            if (part.length() == 0 || (part.length() > 3)) return false;
+            if (part.length() > 1 && part.startsWith("0")) return false;
+            for (char c : part.toCharArray())
+                if (!Character.isDigit(c)) return false;
+            int num = Integer.parseInt(part);
+            if (num < 0 || num > 255) return false;
+        }
+
+        return true;
+    }
+
+    private boolean isIPv6(String s) {
+        var parts = s.split(":", -1);
+        if (parts.length != 8)
+            return false;
+        for (var part : parts) {
+            if (part.length() == 0 || part.length() > 4)
+                return false;
+            for (var c : part.toCharArray()) {
+                if (!isHex(c)) return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isHex(char c) {
+        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
     }
 }
