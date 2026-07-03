@@ -4,27 +4,29 @@ public class Main {
     public static void main(String[] args) {
         Solution s = new Solution();
 
-        System.out.println(s.lengthOfLastWord("luffy is still joyboy"));
+        System.out.println(s.lengthOfLastWord("a "));
 
     }
 }
 
 class Solution {
     public int lengthOfLastWord(String s) {
-        int start = 0;
-        int lastLength = 0;
+        int end = s.length() - 1;
+        int result = 0;
         boolean insideWord = false;
-        for  (int i = 0; i <= s.length() - 1; i++) {
+
+        for  (int i = s.length() - 1; i >= 0 ; i--) {
             if (!insideWord && s.charAt(i) != ' ') {
                 insideWord = true;
-                start = i;
+                end = i;
             }
-            if (insideWord && s.charAt(i) == ' ') {
+            else if(insideWord && s.charAt(i) == ' ') {
                 insideWord = false;
-                lastLength = i - start;
+                result = end - i;
+                break;
             }
         }
 
-        return insideWord ? s.length() - start : lastLength;
+        return insideWord ? end + 1: result;
     }
 }
