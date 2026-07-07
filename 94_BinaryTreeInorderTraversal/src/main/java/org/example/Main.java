@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,15 +26,20 @@ public class Main {
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        inorder(result, root);
-        return  result;
-    }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode current = root;
 
-    private void inorder(List<Integer> list, TreeNode root) {
-        if (root == null) return;
-        inorder(list, root.left);
-        list.add(root.val);
-        inorder(list, root.right);
+        while (!stack.isEmpty() || current != null) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+            current = stack.pop();
+            result.add(current.val);
+            current = current.right;
+        }
+
+        return  result;
     }
 }
 
